@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Group7</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="data.js"></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+
+        .map{
+            width: 100%;
+            height: 500px;
+            margin: 0;
+            padding: 0;
+        }
+
+        header{
+            width: 100%;
+            height: 4rem;
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            
+        }
+        h2{
+            margin: 0;
+            vertical-align: center;
+            align-items: center;
+            font-size: 3rem;
+        }
+	</style>
+
+	
+</head>
+<body>
+
+<header>
+    <h2>Code Of Duty</h2>
+</header>
+
+<div class="map" id='map'></div>
+
+<script src="https://gist.githubusercontent.com/alumno2016/506b854cc832a7f439bd1defdd567634/raw/d94ba704fafb263ac2e95e5591ec89f12bab45eb/medellin_colegios.geojson" type="text/javascript"></script>
+
+<script>
+
+	const map = L.map('map').setView([6.181654 ,-75.642444], 13);
+ 
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+	
+	var data_geojson = L.geoJSON(sector).addTo(map);
+
+    // Layer map
+    const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    const osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+    });
+
+    const openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+    });
+	
+    L.geoJSON(sector).bindPopup(function (layer) {
+        return "Comuna: " + layer.feature.properties.comuna + "<br/>" + "Establecimiento:" + layer.feature.properties.SMT_NOMBRE_ESTABLECIMIENTO + "<br/>" + "Calendario: " + layer.feature.properties.calendario + "<br/>" + "zona: " + layer.feature.properties.zona;
+    }).addTo(map);
+
+
+    var baseLayers = {
+	'Layer1': osm,
+	'Layer2': osmHOT,
+    'Layer3': openTopoMap
+};
+	
+
+    var overLayData = {
+        'Data': data_geojson
+    }
+    
+    L.control.layers(baseLayers, overLayData).addTo(map);
+
+
+
+</script>
+
+
+
+</body>
