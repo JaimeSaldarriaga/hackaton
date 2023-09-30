@@ -9,7 +9,12 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.css" />
+<script src="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.js"></script>
     <script src="data.js"></script>
+    <script src="geocoder.js"></script>
+    
 
 	<style>
 		html, body {
@@ -44,6 +49,45 @@
             align-items: center;
             font-size: 3rem;
         }
+
+        .leaflet-control-geocoder a {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+}
+
+.leaflet-control-geocoder {
+	box-shadow: 0 1px 7px #999;
+	background: #f8f8f9;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+}
+
+.leaflet-control-geocoder a {
+	background-image: url('https://sa3m.github.io/leaflet-control-bing-geocoder/images/geocoder.png');
+	width: 36px;
+	height: 36px;
+}
+
+.leaflet-touch .leaflet-control-geocoder a {
+	width: 44px;
+	height: 44px;
+}
+
+.leaflet-control-geocoder .leaflet-control-geocoder-form,
+.leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
+	display: none;
+}
+
+.leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+	display: block;
+	position: relative;
+}
+
+.leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+	padding: 5px;
+}
 	</style>
 
 	
@@ -87,7 +131,10 @@
 	
     L.geoJSON(sector).bindPopup(function (layer) {
         return "Comuna: " + layer.feature.properties.comuna + "<br/>" + "Establecimiento:" + layer.feature.properties.SMT_NOMBRE_ESTABLECIMIENTO + "<br/>" + "Calendario: " + layer.feature.properties.calendario + "<br/>" + "zona: " + layer.feature.properties.zona;
-    }).addTo(map);
+    }).addTo(data_geojson);
+
+
+
 
 
     var baseLayers = {
@@ -100,8 +147,17 @@
     var overLayData = {
         'Data': data_geojson
     }
+
+
     
     L.control.layers(baseLayers, overLayData).addTo(map);
+
+    
+		var bingGeocoder = new L.Control.BingGeocoder('AsaKzgbo2GW8wrcv0mLCyVvEx2Q8V1N54Gpmizw-fzHIKOAjAMMy4TdNfKdS71vs');
+
+        map.addControl(bingGeocoder);
+   
+
 
 
 
