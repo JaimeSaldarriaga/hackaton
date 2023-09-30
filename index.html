@@ -1,138 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<base target="_top">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<title>Group7</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.css" />
-<script src="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.js"></script>
+<head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Group7</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script
+        src="https://unpkg.com/@geoapify/leaflet-address-search-plugin@^1/dist/L.Control.GeoapifyAddressSearch.min.js"></script>
     <script src="data.js"></script>
     <script src="geocoder.js"></script>
-    
 
-	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
-		.leaflet-container {
-			height: 400px;
-			width: 600px;
-			max-width: 100%;
-			max-height: 100%;
-		}
 
-        .map{
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .leaflet-container {
+            height: 400px;
+            width: 600px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .map {
             width: 100%;
-            height: 500px;
+            height: 100vh;
             margin: 0;
             padding: 0;
         }
 
-        header{
+        header {
             width: 100%;
             height: 4rem;
             background-color: #222;
             color: #fff;
             text-align: center;
-            
+
         }
-        h2{
+
+        h2 {
             margin: 0;
             vertical-align: center;
             align-items: center;
             font-size: 3rem;
         }
 
+
+        header.top-black-style {
+            width: 100%;
+            height: 15vh;
+            background-color: #000;
+        }
+
+        header.top-black-style nav {
+            width: 100%;
+            height: 100%;
+        }
+
+        header.top-black-style nav ul {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header.top-black-style nav ul li {
+            display: inline-block;
+            color: #fff;
+            font-family: Roboto;
+            list-style: none;
+            font-size: 1em;
+            padding: 10px;
+            margin: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        header.top-black-style nav ul li:hover {
+            color: #ccc;
+        }
+
+        header.top-black-style nav ul li.special {
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+        }
+
+        header.top-black-style nav ul li.special.title {
+            font-size: 1.4em;
+            letter-spacing: 1.4px;
+        }
+
+        header.top-black-style nav ul li.special.title:hover {
+            color: #f95658;
+        }
+
+        header.top-black-style nav ul li.active {
+            background-color: #101213;
+        }
+
+        header.top-black-style nav ul li.active:hover {
+            color: #fff;
+        }
+
+        header.top-black-style nav ul .separation {
+            margin-left: 40px;
+        }
+
+        header.top-black-style nav ul .bubble {
+            min-width: 100px;
+            min-height: 25px;
+            background-color: #fff;
+            padding: 10px;
+            font-family: Roboto;
+            border-radius: 2px;
+            font-size: 1.1em;
+            z-index: 999;
+            position: absolute;
+            border-radius: 0.4em;
+            margin-left: -29%;
+            display: none;
+        }
+
+        header.top-black-style nav ul .bubble::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 0;
+            height: 0;
+            border: 7px solid transparent;
+            border-right-color: #fff;
+            border-left: 0;
+            margin-top: -7px;
+            margin-left: -7px;
+        }
+
         .leaflet-control-geocoder a {
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	display: block;
-}
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            display: block;
+        }
 
-.leaflet-control-geocoder {
-	box-shadow: 0 1px 7px #999;
-	background: #f8f8f9;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;
-}
+        .leaflet-control-geocoder {
+            box-shadow: 0 1px 7px #999;
+            background: #f8f8f9;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+        }
 
-.leaflet-control-geocoder a {
-	background-image: url('https://sa3m.github.io/leaflet-control-bing-geocoder/images/geocoder.png');
-	width: 36px;
-	height: 36px;
-}
+        .leaflet-control-geocoder a {
+            background-image: url('https://sa3m.github.io/leaflet-control-bing-geocoder/images/geocoder.png');
+            width: 36px;
+            height: 36px;
+        }
 
-.leaflet-touch .leaflet-control-geocoder a {
-	width: 44px;
-	height: 44px;
-}
+        .leaflet-touch .leaflet-control-geocoder a {
+            width: 44px;
+            height: 44px;
+        }
 
-.leaflet-control-geocoder .leaflet-control-geocoder-form,
-.leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
-	display: none;
-}
+        .leaflet-control-geocoder .leaflet-control-geocoder-form,
+        .leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
+            display: none;
+        }
 
-.leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
-	display: block;
-	position: relative;
-}
+        .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            display: block;
+            position: relative;
+        }
 
-.leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
-	padding: 5px;
-}
-	</style>
+        .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
+            padding: 5px;
+        }
+    </style>
 
-	
+
 </head>
+
 <body>
 
-<header>
+    <header class="top-black-style">
+        <nav>
+            <ul>
+                <li class="special title">
+                    CODE OF DUTY
+                </li>
+                <!--<div class="bubble">
+                    Go to "About" section ?
+                </div>-->
+                <div class="separation"></div>
+                <li class="active">
+                    <a class="bg-dark text-light text-decoration-none" href="" data-bs-toggle="modal" data-bs-target="#exampleModal">TEAM7</a>
+                </li>
+                <!-- <li>
+                    About
+                </li> -->
+                <!-- <div class="separation"></div> -->
+                <!-- <li class="special">
+                    Sign In
+                </li> -->
+               <!--  <li class="special">
+                    New User
+                </li> -->
+            </ul>
+        </nav>
+    </header>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Equipo 7</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img class="w-100" src="img/team.jpeg" alt="">
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- <header>
     <h2>Code Of Duty</h2>
-</header>
+</header> -->
 
-<div class="map" id='map'></div>
+    <div class="map" id='map'></div>
 
-<script src="https://gist.githubusercontent.com/alumno2016/506b854cc832a7f439bd1defdd567634/raw/d94ba704fafb263ac2e95e5591ec89f12bab45eb/medellin_colegios.geojson" type="text/javascript"></script>
+    <script
+        src="https://gist.githubusercontent.com/alumno2016/506b854cc832a7f439bd1defdd567634/raw/d94ba704fafb263ac2e95e5591ec89f12bab45eb/medellin_colegios.geojson"
+        type="text/javascript"></script>
 
-<script>
+    <script>
 
-	const map = L.map('map').setView([6.181654 ,-75.642444], 13);
- 
-	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 19,
-		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
-	
-	var data_geojson = L.geoJSON(sector).addTo(map);
-    var data_comunas = L.geoJSON(comunas).addTo(map);
+        const map = L.map('map').setView([6.181654, -75.642444], 13);
 
-    // Layer map
-    const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
+        const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
 
-    const osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
-    });
+        var data_geojson = L.geoJSON(sector).addTo(map);
+        var data_comunas = L.geoJSON(comunas).addTo(map);
 
-    const openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-    });
-	
-    L.geoJSON(sector).bindPopup(function (layer) {
-        return "<b>Comuna: </b>" + layer.feature.properties.comuna + "<br/>" + "<b>Establecimiento: </b>" + layer.feature.properties.SMT_NOMBRE_ESTABLECIMIENTO + "<br/>" + "<b> Calendario: </b>" + layer.feature.properties.calendario + "<br/>" + "<b>zona: </b>" + layer.feature.properties.zona;
-    }).addTo(data_geojson);
+        // Layer map
+        const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        });
+
+        const osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>'
+        });
+
+        const openTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+        });
+
+        L.geoJSON(sector).bindPopup(function (layer) {
+            return "<b>Comuna: </b>" + layer.feature.properties.comuna + "<br/>" + "<b>Establecimiento: </b>" + layer.feature.properties.SMT_NOMBRE_ESTABLECIMIENTO + "<br/>" + "<b> Calendario: </b>" + layer.feature.properties.calendario + "<br/>" + "<b>zona: </b>" + layer.feature.properties.zona;
+        }).addTo(data_geojson);
 
 
         var baseLayers = {
@@ -140,7 +293,7 @@
             'Layer2': osmHOT,
             'Layer3': openTopoMap
         };
-	
+
 
         var overLayData = {
             'Data': data_geojson
@@ -152,9 +305,9 @@
         var bingGeocoder = new L.Control.BingGeocoder('AsaKzgbo2GW8wrcv0mLCyVvEx2Q8V1N54Gpmizw-fzHIKOAjAMMy4TdNfKdS71vs');
 
         map.addControl(bingGeocoder);
-   
 
-</script>
+
+    </script>
 
 
 
