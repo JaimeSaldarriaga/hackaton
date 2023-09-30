@@ -92,6 +92,6 @@ L.Control.BingGeocoder = L.Control.extend({
 	}
 });
 
-L.control.bingGeocoder = function (key, options) {
-		return new L.Control.BingGeocoder(key, options);
+    L.control.bingGeocoder = function (key, options) {
+            return new L.Control.BingGeocoder(key, options);
 };

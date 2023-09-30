@@ -112,6 +112,7 @@
 	}).addTo(map);
 	
 	var data_geojson = L.geoJSON(sector).addTo(map);
+    var data_comunas = L.geoJSON(comunas).addTo(map);
 
     // Layer map
     const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -130,36 +131,28 @@
     });
 	
     L.geoJSON(sector).bindPopup(function (layer) {
-        return "Comuna: " + layer.feature.properties.comuna + "<br/>" + "Establecimiento:" + layer.feature.properties.SMT_NOMBRE_ESTABLECIMIENTO + "<br/>" + "Calendario: " + layer.feature.properties.calendario + "<br/>" + "zona: " + layer.feature.properties.zona;
+        return "<b>Comuna: </b>" + layer.feature.properties.comuna + "<br/>" + "<b>Establecimiento: </b>" + layer.feature.properties.SMT_NOMBRE_ESTABLECIMIENTO + "<br/>" + "<b> Calendario: </b>" + layer.feature.properties.calendario + "<br/>" + "<b>zona: </b>" + layer.feature.properties.zona;
     }).addTo(data_geojson);
 
 
-
-
-
-    var baseLayers = {
-	'Layer1': osm,
-	'Layer2': osmHOT,
-    'Layer3': openTopoMap
-};
+        var baseLayers = {
+            'Layer1': osm,
+            'Layer2': osmHOT,
+            'Layer3': openTopoMap
+        };
 	
 
-    var overLayData = {
-        'Data': data_geojson
-    }
+        var overLayData = {
+            'Data': data_geojson
+        }
 
 
-    
-    L.control.layers(baseLayers, overLayData).addTo(map);
+        L.control.layers(baseLayers, overLayData).addTo(map);
 
-    
-		var bingGeocoder = new L.Control.BingGeocoder('AsaKzgbo2GW8wrcv0mLCyVvEx2Q8V1N54Gpmizw-fzHIKOAjAMMy4TdNfKdS71vs');
+        var bingGeocoder = new L.Control.BingGeocoder('AsaKzgbo2GW8wrcv0mLCyVvEx2Q8V1N54Gpmizw-fzHIKOAjAMMy4TdNfKdS71vs');
 
         map.addControl(bingGeocoder);
    
-
-
-
 
 </script>
 
